@@ -1,0 +1,15 @@
+let num = 10;
+let lattice;
+let tile;
+let base;
+let scalar
+
+function setup(){
+    createCanvas(500,500);
+    scalar = height * 1.0/ num;
+
+}
+
+function draw(){
+
+}
