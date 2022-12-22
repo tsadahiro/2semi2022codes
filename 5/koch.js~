@@ -1,0 +1,31 @@
+
+function setup(){
+    createCanvas(600,600);
+    translate(300,300);
+    scale(1,-1);
+    drawKoch({x:-1,y:0}, {x:1,y:0}, 0, 3);
+}
+
+function drawKoch(p, q, level){
+    if (level == 0){
+	return();
+    }
+    let l = sqrt((p.x-q.x)^2+(p.y-q.y)^2)
+    let p1 = {x:p.x + l/3*(q.x-p.x),
+	      y:p.y + l/3*(q.y-p.y)
+	     }
+    let p2 = {x:p1.x + l/3*(p.x-q.x)*cos(PI/3) - l/3*(p.y-q.y)*sin(PI/3),
+	      y:p1.y + l/3*(p.y-q.y)*sin(PI/3) + l/3*(p.y-q.y)*cos(PI/3),
+	     }
+    let p3 = {x:q.x + l/3*(p.x-q.x),
+	      y:q.y + l/3*(p.y-q.y)
+	     }
+    drawKoch(p, p1, level-1);
+    drawKoch(p1, p2, level-1);
+    drawKoch(p2, p3, level-1);
+    drawKoch(p3, q, level-1);
+}
+
+function draw(){
+    
+}

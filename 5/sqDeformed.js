@@ -9,11 +9,10 @@ let button;
 function setup(){
     createCanvas(500,500);
     scalar = height * 1.0/ num;
+    strokeWeight(5);
     button = createButton('+');
     button.position("20%", "100%");
     button.mousePressed(increaseTheta);
-    smooth();
-    strokeWeight(3);
     makeSqVector();
     lattice = makeSqLattice();
     drawTiling();
@@ -44,13 +43,7 @@ function drawTiling(){
     background(color("white"));
     for (let vecArr of lattice){
 	for (let vec of vecArr){
-	    //fill(color("lightgray"));
-	    if (round(vec.x/scalar)%2 == round(vec.y/scalar)%2){
-		fill(color("green"));
-	    }
-	    else{
-		fill(color("red"));
-	    }
+	    fill(color("lightgray"));
 	    deformedSquare(vec.x,vec.y);
 	}
     }
@@ -67,28 +60,34 @@ function midPoint(p,q){
 }
 
 function deformedSquare(x,y){
-    //fill("lightgray");
+    fill("lightgray");
     let v = [];
     let cp = [];
-    let parityY = round(y/scalar)%2;
-    let parityX = round(x/scalar)%2;
+
+    let yIdx = round(y/scalar);
+    if (yIdx%2 == 0){
+	ySgn = +1
+    }
+    else{
+	ySgn = -1
+    }
+    
     v[0] = {x:x-0.5*scalar,y:y-0.5*scalar}
     v[1] = {x:x+0.5*scalar,y:y-0.5*scalar}
     v[2] = {x:x+0.5*scalar,y:y+0.5*scalar}    
     v[3] = {x:x-0.5*scalar,y:y+0.5*scalar}
-    if (parityY==parityX){
-	phi = theta
-    }else{
-	phi = -theta
-    }
-    cp[0] = rotateAround(v[0],phi,midPoint(v[0],v[1]));
-    cp[1] = rotateAround(v[1],phi,midPoint(v[0],v[1]));
-    cp[2] = rotateAround(v[1],phi,midPoint(v[1],v[2]));
-    cp[3] = rotateAround(v[2],phi,midPoint(v[1],v[2]));
-    cp[4] = rotateAround(v[2],-phi,midPoint(v[2],v[3]));
-    cp[5] = rotateAround(v[3],-phi,midPoint(v[2],v[3]));
-    cp[6] = rotateAround(v[3],-phi,midPoint(v[3],v[0]));
-    cp[7] = rotateAround(v[0],-phi,midPoint(v[3],v[0]));
+    //a
+    cp[0] = rotateAround(v[0],ySgn*theta,midPoint(v[0],v[1]));
+    cp[1] = rotateAround(v[1],ySgn*theta,midPoint(v[0],v[1]));
+    //b
+    cp[2] = rotateAround(v[1],theta,midPoint(v[1],v[2]));
+    cp[3] = rotateAround(v[2],theta,midPoint(v[1],v[2]));
+    //c
+    cp[4] = rotateAround(v[2],-ySgn*theta,midPoint(v[2],v[3]));
+    cp[5] = rotateAround(v[3],-ySgn*theta,midPoint(v[2],v[3]));
+    //d
+    cp[6] = rotateAround(v[3],theta,midPoint(v[3],v[0]));
+    cp[7] = rotateAround(v[0],theta,midPoint(v[3],v[0]));
 
     beginShape();
     vertex(v[0].x,v[0].y);
@@ -106,8 +105,8 @@ function deformedSquare(x,y){
 function draw(){
     makeSqVector();
     lattice = makeSqLattice();
-    //theta = theta + PI/90;
-    //drawTiling();
+    theta = theta + PI/180;
+    drawTiling();
 }
 
 function increaseTheta(){
