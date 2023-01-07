@@ -1,0 +1,19 @@
+const unit = 100
+const gon = 6
+
+function setup(){
+    createCanvas(500,500);
+    
+}
+
+function triangle(){
+    beginShape();
+    vertex(0,0);
+    vertex(unit*cos(PI/gon), unit*(sin(PI/gon)));
+    vertex(unit*cos(PI/gon), -unit*(sin(PI/gon)));
+    endShape(CLOSE);
+}
+
+function draw(){
+
+}
