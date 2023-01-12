@@ -1,0 +1,7 @@
+const unit = 100;
+
+function setup(){
+    createCanvas(8*unit, 8*unit);
+    background("white");
+
+}

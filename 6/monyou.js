@@ -3,6 +3,7 @@ const unit = 150;
 function setup(){
     createCanvas(6*unit,6*unit);
     background("white");
+    stroke("gray");
     noFill();
     translate(3*unit, 3*unit);
     scale(1,-1);
@@ -19,13 +20,15 @@ function drawTriangle(){
 	       {x:unit*cos(PI/6), y:-unit*sin(PI/6)},
 	       30
 	      )
+    textSize(20);
+    text("Hello World",20,0);
     stroke("red");
     drawSpiral({x:0,y:0},
 	       {x:unit*cos(PI/6), y:unit*sin(PI/6)},
 	       {x:unit*cos(PI/6), y:-unit*sin(PI/6)},
 	       1
 	      )
-    stroke("black");
+    stroke("gray");
 }
 
 function drawSpiral(a,b,c,level){

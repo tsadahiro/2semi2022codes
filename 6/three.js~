@@ -1,0 +1,50 @@
+const unit = 100;
+const base = math.complex(-1,1);
+
+function setup(){
+    createCanvas(6*unit, 6*unit);
+    background("white")
+    translate(3*unit, 3*unit);
+    generate([],16);
+}
+
+function generate(seq, level){
+    if (level <= 0){
+	evaluate(seq,base);
+	return;
+    }
+
+    for (let d = 0; d <= 1; d++){
+	seq.push(d);
+	generate(seq, level-1);
+	seq.pop();
+    }
+}
+
+function evaluate(seq, base){
+    let sum = math.complex(1,0);
+    for (let i in seq){
+	sum = math.add(sum, math.multiply(math.complex(seq[i],0),math.pow(base,i)));
+    }
+    let head = seq[12]*2 + seq[11]
+    if (head==0){
+	fill("red")
+	stroke("red")
+    }
+    else if (head==1){
+	fill("green")
+	stroke("green")
+    }
+    else if (head==2){
+	fill("blue")
+	stroke("blue")
+    }
+    else if (head==3){
+	fill("black")
+	stroke("black")
+    }
+
+    circle(2*math.re(sum), 2*math.im(sum), 1);
+}
+
+
