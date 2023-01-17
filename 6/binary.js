@@ -10,7 +10,6 @@ function setup(){
 function generateSeq(seq, level){
     if (level <= 0){
 	console.log(evaluate(seq,2));
-	circle(2*evaluate(seq,2), 0, 1);
 	return;
     }
     for (let d=0; d<2; d++){
@@ -25,5 +24,6 @@ function evaluate(seq, base){
     for (let i in seq){
 	sum = sum + seq[i]*pow(base,i);
     }
+    circle(2*sum, 0, 1);
     return(sum);
 }

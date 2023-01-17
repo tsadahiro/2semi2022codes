@@ -1,0 +1,14 @@
+const unit = 100;
+
+function setup(){
+    createCanvas(6*unit, 6*unit);
+    background("white");
+    translate(3*unit, 3*unit);
+
+    beginShape();
+    endShape(Close);
+}
+
+function draw(){
+
+}
