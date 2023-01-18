@@ -1,4 +1,4 @@
-const unit = 80;
+const unit = 100;
 
 function setup(){
     createCanvas(19*unit, 10*unit);
